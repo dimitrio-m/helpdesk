@@ -1,0 +1,125 @@
+- var subcategoriesList = []
+.modal#edit
+  .modal-content
+    .modal-header
+      span.close &times;
+      h1 Edit User
+    .modal-body
+      form.container#editForm(action="/ticket/edit", method="post")
+        input#editid(type="hidden", name="id", value=ticket.id)
+        .input-group.space-right
+          label(for="assignedto") Assigned to:
+          select#assignedto(name="assignedto")
+            option(value="") Select user
+            each employee in usersList
+              if (employee.email === ticket.assigned_to)
+                option(value=employee.email, selected)=employee.name
+              else
+                option(value=employee.email)=employee.name
+          label(for="category") Category:
+          select#category(name="category")
+            option(value="", default) Select category
+            each category in categoriesList
+              if (category.name === ticket.category)
+                - subcategoriesList = category.subcategories
+                option(value=category.name, selected)=category.name
+              else
+                option(value=category.name)=category.name
+          label(for="department") Department:
+          select#department(name="department")
+            option(value="", default) Select department
+            each department in departmentsList
+              if (department.name === ticket.department)
+                option(value=department.name, selected)=department.name
+              else
+                option(value=department.name)=department.name
+          label(for="from2") From: 
+          input#from2(type="text", name="from", value=ticket.from.name)
+        .input-group
+          label(for="cc") CC:
+          select#cc(name="cc")
+            option(value="") Select CC user
+            each employee in usersList
+              if (employee.email === ticket.cc)
+                option(value=employee.email, selected)=employee.name
+              else
+                option(value=employee.email)=employee.name
+          label(for="subcategory") Subcategory:
+          select#subcategory(name="subcategory")
+            option(value="", default) Select subcategory
+            each subcategory in subcategoriesList
+              if (subcategory === ticket.subcategory)
+                option(value=subcategory, selected)=subcategory
+              else
+                option(value=subcategory)=subcategory
+          label(for="phone") Phone: 
+          input#phone(type="text", name="phone", value=ticket.phone)
+          label(for="problem") Problem:
+          input#problem(type="text", name="problem", value=ticket.problem)
+    .modal-footer
+        button.right.success(type="submit", form="editForm") Send  
+script.
+  var modal = document.getElementById('edit');
+  var btn = document.getElementById('editTicket');
+  var span = document.getElementsByClassName('close')[0];
+  var hamburger = document.getElementById('hamburger');
+  var sidebar = document.getElementById('sidebar');
+  var main = document.getElementById('main');
+  var categoryForm = document.getElementById('category');
+  var subcategoryForm = document.getElementById('subcategory');
+  var categories = !{JSON.stringify(categoriesList)};
+  
+  var idleLogout = function() {
+    var t;
+    window.onload = resetTimer;
+    window.onmousemove = resetTimer;
+    window.onmousedown = resetTimer; 
+    window.onclick = resetTimer;    
+    window.onscroll = resetTimer;    
+    window.onkeypress = resetTimer;
+
+    function logout() {
+      window.location.reload();
+    }
+
+    function resetTimer() {
+      clearTimeout(t);
+      t = setTimeout(logout, 1500000); 
+    }
+  };
+  idleLogout();
+  categoryForm.onchange = function() {
+    for (let category of categories) {
+      if(category.name === this.value) {
+        while (subcategoryForm.firstChild) {
+          subcategoryForm.removeChild(subcategoryForm.firstChild);
+        }
+        for (let subcategory of category.subcategories) {
+          let opt = document.createElement('OPTION');
+          opt.value = subcategory;
+          opt.text = subcategory;
+          subcategoryForm.appendChild(opt);
+        }
+        break;
+      }
+    }
+  };
+
+  hamburger.onclick = function() {
+    sidebar.classList.add('toggled');
+    main.onclick = function () {
+      sidebar.classList.remove('toggled');
+      main.onclick = null;
+    }
+  };
+  btn.onclick = function() {
+    modal.style.display = 'block';
+  };
+  span.onclick = function() {
+    modal.style.display = 'none';
+  };
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+  };

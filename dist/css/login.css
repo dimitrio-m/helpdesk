@@ -1,0 +1,103 @@
+body, html {
+  margin: 0;
+  font-family: 'Lato', sans-serif;
+  color: #292b2c;
+  background-color: #fafafa;
+  height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+}
+
+.box {
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 1rem 0;
+  background-color: white;
+}
+
+input, select {
+  background-color: white;
+  background-size: 1rem;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  border: 0;
+  border: 1px #ddd solid;
+  width: 80%;
+}
+
+input[type=text] {
+  background-image: url('/img/005-user-1.svg');
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+input:-webkit-autofill, 
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+
+@-webkit-keyframes autofill {
+  to {
+      background-color: white;
+      background-size: 1rem;
+      background-position: 10px 10px; 
+      background-repeat: no-repeat;
+      padding-left: 40px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      display: block;
+      box-sizing: border-box;
+      margin-bottom: 1rem;
+      margin-left: auto;
+      margin-right: auto;
+      border: 0;
+      border: 1px #ddd solid;
+      width: 80%;
+      background-image: url('/img/005-user-1.svg');
+  }
+}
+
+input[type=password] {
+  background-image: url('/img/002-padlock.svg');
+}
+
+select {
+  padding-left: 10px;
+}
+
+button {
+  display: block;
+  padding: 9px 0;
+  margin: 0 auto 0.67em auto;
+  width: 30%;
+  box-sizing: border-box;
+  background-color: #5cb85c;
+  color: white;
+  border: 1px #5cb85c solid;
+}

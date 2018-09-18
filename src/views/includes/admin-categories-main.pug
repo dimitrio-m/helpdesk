@@ -1,0 +1,22 @@
+input#search(type="search", name="search", placeholder="Search id or username...")
+h1 Categories #[span#addTicket.add.glyphicon.glyphicon-plus(aria-hidden="true")]
+if(message)  
+  p Message...
+table
+  thead
+    tr
+      th ID
+      th Name
+      th Subcategories
+      th Actions
+  tbody
+    each category in categoriesList
+      tr
+        td=category.id
+        td=category.name
+        td=category.subcategories.join(', ')
+        td 
+          a(href="#", style="margin-right:20px", onclick="document.getElementById('edit').style.display = 'block';var data = this.parentElement.previousElementSibling;document.getElementById('editsubcategories').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editname').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editid').value = data.innerHTML;")
+            i.glyphicon.glyphicon-pencil  
+          a(href="/admin/category/remove/"+category.id)
+            i.glyphicon.glyphicon-remove

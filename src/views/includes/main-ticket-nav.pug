@@ -1,0 +1,21 @@
+h1 Helpdesk
+img(src="/img/005-user-1.svg", alt="User", width="60px")
+p=user.name
+br
+h2 
+  a(href=backUrl?backUrl:"/dashboard/order/date/down/1") #[i.glyphicon.glyphicon-arrow-left] &nbsp Back
+hr
+h4 #[span.light Store:] 
+  =ticket.from.store
+h4 #[span.light From:] 
+  =ticket.from.name
+h4 #[span.light Status:] 
+  =ticket.status
+h4 #[span.light Phone:] 
+  =ticket.phone
+h4 #[span.light Mobile:] 
+  =ticket.cellphone
+h4 #[span.light IP/PC:] 
+  =store.ip_pc
+h4 #[span.light IPVPN:] 
+  =store.ipvpn

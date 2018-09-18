@@ -1,0 +1,40 @@
+.head
+  h1 Ticket &nbsp #[span#ticketid="#"+ticket.id]
+  h2.print="Status: "+ticket.status
+  button.btn-edit.print-hidden#editTicket Edit &nbsp #[i.glyphicon.glyphicon-pencil]
+  button.btn-edit.print-hidden(onclick="window.print();return false;") Print &nbsp #[i.glyphicon.glyphicon-print]
+  if (ticket.status === "Open")
+    button.btn-edit.warning.print-hidden(style="width:auto", onclick="window.location.href='/inprogress/"+ticket.id+"'") Mark as In Progress &nbsp #[i.glyphicon.glyphicon-ok]
+  if (ticket.status != "Closed")
+    button.btn-edit.success.print-hidden(style="width:auto", onclick="window.location.href='/close/"+ticket.id+"'") Mark as Closed &nbsp #[i.glyphicon.glyphicon-ok]
+  hr
+.container
+  .people
+    p Assigned To: &nbsp #[span.display=ticket.assigned_to]
+    p Category: &nbsp #[span.display=ticket.category]
+    p Department: &nbsp #[span.display=ticket.department]
+  .details
+    p CC: &nbsp #[span.display=ticket.cc]
+    p Sub Category: &nbsp #[span.display=ticket.subcategory]
+hr
+h2=ticket.problem
+p=ticket.description
+//h2 Comments
+each entry in ticket.comments
+  if (entry.category !== "Log")
+    p=`➥ ${entry.content}`
+      span.date=entry.author
+      span.date=entry.timestamp.toLocaleString('en-GB')
+h3.print-hidden Add new comment
+form.print-hidden(action="/comment/new/"+ticket.id, method="post")
+  input(type="hidden", name="author", value=user.email)
+  textarea#newComment(name="comment", cols="30", rows="4", required)
+  button.right.success#addComment(type="submit") Add
+if(ticket.comments.length)
+  h2 History
+each entry in ticket.comments
+  if (entry.category === "Log")
+    p.log=entry.content
+      span.date=entry.author
+      span.date=entry.timestamp.toLocaleString('en-GB')
+  

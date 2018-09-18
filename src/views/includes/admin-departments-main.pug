@@ -1,0 +1,20 @@
+input#search(type="search", name="search", placeholder="Search id or username...")
+h1 Departments #[span#addTicket.add.glyphicon.glyphicon-plus(aria-hidden="true")]
+if(message)  
+  p Message...
+table
+  thead
+    tr
+      th ID
+      th Name
+      th Actions
+  tbody
+    each department in departmentsList
+      tr
+        td=department.id
+        td=department.name
+        td
+          a(href="#", style="margin-right:20px", onclick="document.getElementById('edit').style.display = 'block';var data = this.parentElement.previousElementSibling;document.getElementById('editname').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editid').value = data.innerHTML;")
+            i.glyphicon.glyphicon-pencil  
+          a(href="/admin/department/remove/"+department.id)
+            i.glyphicon.glyphicon-remove

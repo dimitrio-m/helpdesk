@@ -1,0 +1,90 @@
+.modal#createTicket
+  .modal-content
+    .modal-header
+      span.close &times;
+      h1 Create New Store
+    .modal-body
+      form.container#createForm(action="/admin/store/new", method="post")
+        .input-group.space-right
+          label(for="name") Name:
+          input#name(type="text", name="name", placeholder="Mall")
+        .input-group
+          label(for="company") Company:
+          select#company(name="company")
+            option(value="A.X.F. A.E") A.X.F. A.E
+            option(value="A.X.F. STORES A.E") A.X.F. STORES A.E
+        .input-group.space-right
+          label(for="phone") Phone:
+          input#phone(type="text", name="phone", placeholder="123-12345678")
+        .input-group
+          label(for="ip_pc") IP/PC:
+          input#ip_pc(type="text", name="ip_pc", placeholder="192.168.0.100")
+        .input-group.space-right
+          label(for="ipvpn") IPvpn:
+          input#ipvpn(type="text", name="ipvpn", placeholder="IPvpn123456")
+    .modal-footer
+        button.right.success(type="submit", form="createForm") Send
+.modal#edit
+  .modal-content
+    .modal-header
+      span.close &times;
+      h1 Edit Store
+    .modal-body
+      form.container#editForm(action="/admin/store/edit", method="post")
+        input#editid(type="hidden", name="id")
+        .input-group.space-right
+          label(for="editname") Name:
+          input#editname(type="text", name="name", placeholder="Mall")
+        .input-group
+          label(for="editcompany") Company:
+          select#editcompany(name="company")
+            option(value="A.X.F. A.E") A.X.F. A.E
+            option(value="A.X.F. STORES A.E") A.X.F. STORES A.E
+        .input-group.space-right
+          label(for="editphone") Phone:
+          input#editphone(type="text", name="phone", placeholder="123-12345678")
+        .input-group
+          label(for="editip_pc") IP/PC:
+          input#editip_pc(type="text", name="ip_pc", placeholder="192.168.0.100")
+        .input-group.space-right
+          label(for="editipvpn") IPvpn:
+          input#editipvpn(type="text", name="ipvpn", placeholder="IPvpn123456")
+    .modal-footer
+        button.right.success(type="submit", form="editForm") Send
+          
+script.
+  var modal = document.getElementById('createTicket');
+  var btn = document.getElementById('addTicket');
+  var span = document.getElementsByClassName('close');
+  var hamburger = document.getElementById('hamburger');
+  var sidebar = document.getElementById('sidebar');
+  var main = document.getElementById('main');
+  var edit = document.getElementById('edit');
+  
+
+  hamburger.onclick = function() {
+    sidebar.classList.add('toggled');
+    main.onclick = function () {
+      sidebar.classList.remove('toggled');
+      main.onclick = null;
+    }
+  }
+
+  btn.onclick = function() {
+    modal.style.display = 'block';
+  }
+
+  span[0].onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  span[1].onclick = function() {
+    edit.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+        edit.style.display = 'none';
+    }
+  }

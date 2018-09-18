@@ -1,0 +1,30 @@
+input#search(type="search", name="search", placeholder="Search id or username...")
+h1 Stores #[span#addTicket.add.glyphicon.glyphicon-plus(aria-hidden="true")]
+if(message)  
+  p Message...
+table
+  thead
+    tr
+      th ID
+      th Name
+      th Company
+      th Phone
+      th IP/PC
+      th IPvpn
+      th Created
+      th Actions
+  tbody
+    each store in storeList
+      tr
+        td=store.id
+        td=store.name
+        td=store.company
+        td=store.phone
+        td=store.ip_pc
+        td=store.ipvpn
+        td=store.created.toLocaleString('en-GB')
+        td 
+          a(href="#", style="margin-right:20px", onclick="document.getElementById('edit').style.display = 'block';var data = this.parentElement.previousElementSibling.previousElementSibling;document.getElementById('editipvpn').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editip_pc').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editphone').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editcompany').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editname').value = data.innerHTML;data = data.previousElementSibling;document.getElementById('editid').value = data.innerHTML;")
+            i.glyphicon.glyphicon-pencil  
+          a(href="/admin/store/remove/"+store.id)
+            i.glyphicon.glyphicon-remove

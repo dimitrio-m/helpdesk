@@ -1,0 +1,12 @@
+script.
+  var hamburger = document.getElementById('hamburger');
+  var sidebar = document.getElementById('sidebar');
+  var main = document.getElementById('main')
+
+  hamburger.onclick = function() {
+    sidebar.classList.add('toggled');
+    main.onclick = function () {
+      sidebar.classList.remove('toggled');
+      main.onclick = null;
+    }
+  }

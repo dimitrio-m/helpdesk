@@ -1,0 +1,21 @@
+a(href="/logout") Logout
+h1 Helpdesk
+img(src="/img/005-user-1.svg", alt="User", width="60px")
+p=user.name
+br
+if (user.role === "Administrator")
+  h2
+    a(href="/admin/dashboard") Administrator Menu
+  hr
+h2
+  a(href="/dashboard/order/date/down/1") All
+hr
+each category in categoriesList
+  h2.dropdown
+    a(href=`/dashboard/order/date/down/1/${category.name}`)=category.name
+  hr
+  if (expand === category.name)
+    ul.showing.animated
+      each subcategory in category.subcategories
+        li
+          a(href=`/dashboard/order/date/down/1/${category.name}/${subcategory}`)=subcategory

@@ -1,0 +1,100 @@
+.modal#createTicket
+  .modal-content
+    .modal-header
+      span.close &times;
+      h1 Create New User
+    .modal-body
+      form.container#createForm(action="/admin/user/new", method="post")
+        .input-group.space-right
+          label(for="email") Email:
+          input#email(type="text", name="email", placeholder="user@example.com")
+          label(for="password") Password:
+          input#password(type="password", name="password", placeholder="passw0rd")
+          label(for="name") Name:
+          input#name(type="text", name="name", placeholder="Mario Perez")
+        .input-group
+          label(for="role") Role:
+          select#role(name="role")
+            option(value="Administrator") Administrator
+            option(value="Simple") Simple User
+          label(for="confirmation") Confirm Password:
+          input#confirmation(type="password", name="confirmation", placeholder="passw0rd")
+      p.error#createError
+    .modal-footer
+        button.right.success#createSend(type="submit", form="createForm") Send
+
+.modal#edit
+  .modal-content
+    .modal-header
+      span.close &times;
+      h1 Edit User
+    .modal-body
+      form.container#editForm(action="/admin/user/edit", method="post")
+        input#editid(type="hidden", name="id")
+        .input-group.space-right
+          label(for="editemail") Email:
+          input#editemail(type="text", name="email", placeholder="user@example.com")
+          label(for="editpassword") Password:
+          input#editpassword(type="password", name="password", placeholder="passw0rd")
+          label(for="editname") Name:
+          input#editname(type="text", name="name", placeholder="Mario Perez")
+        .input-group
+          label(for="editrole") Role:
+          select#editrole(name="role")
+            option(value="Administrator") Administrator
+            option(value="Simple") Simple User
+          label(for="editconfirmation") Retype Password:
+          input#editconfirmation(type="password", name="confirmation", placeholder="passw0rd")
+      p.error#editError
+    .modal-footer
+        button.right.success#editSend(type="submit", form="editForm") Send     
+script.
+  var modal = document.getElementById('createTicket');
+  var edit = document.getElementById('edit');
+  var btn = document.getElementById('addTicket');
+  var span = document.getElementsByClassName('close');
+  var hamburger = document.getElementById('hamburger');
+  var sidebar = document.getElementById('sidebar');
+  var main = document.getElementById('main');
+
+  document.getElementById('editForm').onsubmit = function () {
+    if(document.getElementById('editpassword').value !== document.getElementById('editconfirmation').value) {
+      document.getElementById('editError').innerHTML = 'The password confirmation does not match.';
+      return false;
+    }
+  }
+
+  document.getElementById('createForm').onsubmit = function () {
+    if(document.getElementById('password').value !== document.getElementById('confirmation').value) {
+      document.getElementById('createError').innerHTML = 'The password confirmation does not match.';
+      return false;
+    }
+  }
+
+
+  hamburger.onclick = function() {
+    sidebar.classList.add('toggled');
+    main.onclick = function () {
+      sidebar.classList.remove('toggled');
+      main.onclick = null;
+    }
+  }
+
+  btn.onclick = function() {
+    modal.style.display = 'block';
+  }
+
+  span[1].onclick = function() {
+    edit.style.display = 'none';
+  }
+
+  span[0].onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+        edit.style.display = 'none';
+    }
+  }

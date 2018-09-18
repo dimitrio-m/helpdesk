@@ -1,0 +1,104 @@
+- constructUrl = (currentPage) => `/dashboard/order/${orderBy}/${!rev?'down':'up'}/${currentPage}/`
+- addCategory = (currentPage) =>  expand? constructUrl(currentPage) + expand: constructUrl(currentPage)
+- addSubcategory = (currentPage) => subca? addCategory(currentPage) + '/' + subca: addCategory(currentPage)
+- backPage = currentPage
+input#search(type="search", name="search", placeholder="Search id or username...")
+- aux = 0
+div
+  h1.inline Tickets #[span#addTicket.add.glyphicon.glyphicon-plus(aria-hidden="true")] 
+  p.inline.stat #[span.stat-open=`Open: ${openTotal}`] &nbsp;&nbsp; #[span.stat-progress=`Progress: ${progressTotal}`] &nbsp;&nbsp; #[span.stat-close=`Closed: ${closedTotal}`] &nbsp;
+table.ticket-table
+  thead
+    tr
+      th ID
+      th User
+      th(class={active: orderBy === "store"}) 
+        - url = `/dashboard/order/store/${(orderBy !== "store") || rev?'down':'up'}/${currentPage}/`
+        - url += expand? expand: ''
+        - url += subca? '/' + subca: ''
+        a(href=url) Store #[strong.hide=!rev?'▼':'▲']
+      th(class={active: orderBy === "date"})
+        - url = `/dashboard/order/date/${orderBy !== "date" || rev?'down':'up'}/${currentPage}/`
+        - url += expand? expand: ''
+        - url += subca? '/' + subca: ''
+        a(href=url) Date #[strong.hide=!rev?'▼':'▲']
+      th Problem
+      th.hidde-xs Last Comment
+      th.hidde-xs(class={active: orderBy === "assigned"})
+        - url = `/dashboard/order/assigned/${orderBy !== "assigned" || rev?'down':'up'}/${currentPage}/`
+        - url += expand? expand: ''
+        - url += subca? '/' + subca: ''
+        a(href=url) Assigned to #[strong.hide=!rev?'▼':'▲']
+      th.hidde-xs Category
+      th(class={active: orderBy === "status"})
+        - url = `/dashboard/order/status/${orderBy !== "status" || rev?'down':'up'}/${currentPage}/`
+        - url += expand? expand: ''
+        - url += subca? '/' + subca: ''
+        a(href=url) Status #[strong.hide=!rev?'▼':'▲']
+  tbody
+    each ticket in ticketsList
+      tr(onclick="window.location.href='/ticket"+"/"+ticket.id+"'")
+        td=ticket.id
+        td=ticket.from.name
+        td=ticket.from.store
+        td=ticket.created.toLocaleString('en-GB')	
+        td=ticket.problem
+        if(ticket.comments.length)
+          - var lastComment =  ticket.comments.reverse().filter(comment => comment.category !== "Log");
+          if(lastComment.length)
+            if(lastComment[0].content.length <= 40)
+              td.hidde-xs=lastComment[0].content
+            else
+              td.hidde-xs=lastComment[0].content.substring(0,40)+'...'
+          else if (ticket.description.length >= 40)
+            td.hidde-xs=ticket.description.substring(0,40)+'...'
+          else
+            td.hidde-xs=ticket.description
+        else if (ticket.description.length >= 40)
+          td.hidde-xs=ticket.description.substring(0,40)+'...'
+        else
+          td.hidde-xs=ticket.description
+        td.hidde-xs=ticket.assigned_to
+        td.hidde-xs=ticket.category
+        if (ticket.status === "Open")
+          td #[span.problem=ticket.status]
+        else if (ticket.status === "In Progress")
+          td #[span.progress=ticket.status]
+        else
+          td #[span.resolved=ticket.status]
+ul.pagination
+  li
+    a.double-arrow(href=addSubcategory(1)) ⏴⏴             
+  li
+    if(currentPage > 1)
+      a(href=addSubcategory(currentPage - 1)) ⏴
+    else
+      a(href=addSubcategory(currentPage)) ⏴
+  if(currentPage <= 3)
+    each number in [1,2,3,4,5]
+      li
+        if(number == currentPage)
+          a.current(href="#")=number
+        else
+          a(href=addSubcategory(number))=number
+  else if (currentPage >= (pagesTotal - 2))
+    each number in [pagesTotal - 4, pagesTotal - 3, pagesTotal - 2, pagesTotal - 1, pagesTotal]
+      li
+        if(number == currentPage)
+          a.current(href="#")=number
+        else
+          a(href=addSubcategory(number))=number
+  else
+    each number in [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2]
+      li
+        if(number == currentPage)
+          a.current(href="#")=number
+        else
+          a(href=addSubcategory(number))=number
+  li
+    if(currentPage === pagesTotal)
+      a(href=addSubcategory(pagesTotal)) ⏵
+    else
+      a(href=addSubcategory(currentPage + 1)) ⏵
+  li
+    a.double-arrow(href=addSubcategory(pagesTotal)) ⏵⏵

@@ -1,0 +1,59 @@
+
+> ticket-system@0.0.1 start /home/mixanografisi04/github/ticket-system
+> nodemon src/app.js --exec 'npm run lint && node'
+
+[33m[nodemon] 1.17.1[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `npm run lint && node src/app.js`[39m
+
+> ticket-system@0.0.1 lint /home/mixanografisi04/github/ticket-system
+> eslint **/**.js
+
+
+/home/mixanografisi04/github/ticket-system/src/app.js
+  57:16  warning  Unexpected console statement  no-console
+  72:7   warning  Unexpected console statement  no-console
+
+✖ 2 problems (0 errors, 2 warnings)
+
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npm run lint && node src/app.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npm run lint && node src/app.js`[39m
+
+> ticket-system@0.0.1 lint /home/mixanografisi04/github/ticket-system
+> eslint **/**.js
+
+
+/home/mixanografisi04/github/ticket-system/src/app.js
+  57:16  warning  Unexpected console statement  no-console
+  72:7   warning  Unexpected console statement  no-console
+
+✖ 2 problems (0 errors, 2 warnings)
+
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npm run lint && node src/app.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npm run lint && node src/app.js`[39m
+
+> ticket-system@0.0.1 lint /home/mixanografisi04/github/ticket-system
+> eslint **/**.js
+
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `npm run lint && node src/app.js`[39m
+
+> ticket-system@0.0.1 lint /home/mixanografisi04/github/ticket-system
+> eslint **/**.js
+
+
+/home/mixanografisi04/github/ticket-system/src/app.js
+  57:16  warning  Unexpected console statement  no-console
+  72:7   warning  Unexpected console statement  no-console
+
+✖ 2 problems (0 errors, 2 warnings)
+
+MongooseAutoIncrement.initialize() method is deprecated. Just remove this method, it not required anymore.

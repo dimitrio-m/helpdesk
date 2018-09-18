@@ -1,0 +1,58 @@
+.modal#createTicket
+  .modal-content
+    .modal-header
+      span.close &times;
+      h1 Create New Department
+    .modal-body
+      form.container#createForm(action="/admin/department/new", method="post")
+        label(for="name") Name:
+        input#name(type="text", name="name", placeholder="Sales")
+    .modal-footer
+        button.right.success(type="submit", form="createForm") Send
+.modal#edit
+  .modal-content
+    .modal-header
+      span.close &times;
+      h1 Edit Department
+    .modal-body
+      form.container#editForm(action="/admin/department/edit", method="post")
+        input#editid(type="hidden", name="id")          
+        label(for="editname") Name:
+        input#editname(type="text", name="name", placeholder="Sales")
+    .modal-footer
+        button.right.success(type="submit", form="editForm") Send    
+script.
+  var modal = document.getElementById('createTicket');
+  var btn = document.getElementById('addTicket');
+  var span = document.getElementsByClassName('close');
+  var hamburger = document.getElementById('hamburger');
+  var sidebar = document.getElementById('sidebar');
+  var main = document.getElementById('main');
+  var edit = document.getElementById('edit');
+
+  hamburger.onclick = function() {
+    sidebar.classList.add('toggled');
+    main.onclick = function () {
+      sidebar.classList.remove('toggled');
+      main.onclick = null;
+    }
+  }
+
+  btn.onclick = function() {
+    modal.style.display = 'block';
+  }
+
+  span[0].onclick = function() {
+    modal.style.display = 'none';
+  }
+
+  span[1].onclick = function() {
+    edit.style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = 'none';
+        edit.style.display = 'none';
+    }
+  }
